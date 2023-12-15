@@ -5,3 +5,4 @@ djoser
 djangorestframework-simplejwt
 django-extensions
 drf-nested-routers
+Pillow
