@@ -67,6 +67,7 @@ class TaskSerializer(ModelSerializer):
             'name',
             'slug',
             'description',
+            'time_reminder',
             'label',
             'user'
         ]
@@ -80,6 +81,7 @@ class TaskPostSerializer(ModelSerializer):
             'name',
             'description',
             'label',
+            'time_reminder'
         ]
         
     
@@ -88,5 +90,23 @@ class TaskPostSerializer(ModelSerializer):
         title = validated_data.get('title')
         description = validated_data.get('description')
         label = validated_data.get('label')
+        time_reminder = validated_data.get('time_reminder')
         
-        return Task.objects.create(title=title, description=description, label=label , user_id=self.context['user_id'])
+        return Task.objects.create(title=title, description=description, label=label , time_reminder = time_reminder , user_id=self.context['user_id'])
+    
+    
+class TaskUpdateSerializer(ModelSerializer):
+    
+    name = serializers.CharField(source='title')
+    class Meta:
+        model = Task
+        fields = [
+            'name',
+            'description',
+            'label',
+            'time_reminder'
+        ]
+        
+    
+    def update(self, instance, validated_data):
+        return super().update(instance, validated_data)

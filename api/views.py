@@ -2,7 +2,7 @@ from django.shortcuts import render
 from rest_framework.viewsets import ModelViewSet , GenericViewSet
 from rest_framework.mixins import CreateModelMixin , DestroyModelMixin , RetrieveModelMixin
 from core.models import Label , Task
-from .serializers import LabelPostSerializer , LabelSerializer , LabelDetailSerializer , TaskSerializer , TaskPostSerializer
+from .serializers import LabelPostSerializer , TaskUpdateSerializer , LabelSerializer , LabelDetailSerializer , TaskSerializer , TaskPostSerializer
 
 # Create your views here.
 
@@ -33,4 +33,7 @@ class TaskViewSet(ModelViewSet):
     def get_serializer_class(self):
         if self.request.method == 'POST':
             return TaskPostSerializer
+        
+        if self.request.method == 'PUT' or self.request.method == 'PATCH':
+            return TaskUpdateSerializer
         return TaskSerializer

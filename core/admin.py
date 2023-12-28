@@ -1,5 +1,5 @@
 from django.contrib import admin
-from core.models import Label , Task
+from core.models import Label , Task , Notification
 
 # Register your models here.
 
@@ -11,4 +11,9 @@ class LabelAdmin(admin.ModelAdmin):
     
 @admin.register(Task)
 class TaskAdmin(admin.ModelAdmin):
-    list_display = ['id' , 'title' , 'slug' , 'description' , 'created' , 'label' , 'user']
+    list_display = ['id' , 'title' , 'slug' , 'description' , 'created' , 'time_reminder' , 'label' , 'user']
+    
+    
+@admin.register(Notification)
+class NotificationAdmin(admin.ModelAdmin):
+    list_display = ['id' , 'user' , 'task']
