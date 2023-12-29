@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'django_filters',
     'djoser',
     'rest_framework_simplejwt',
+    'django_celery_results',
     
 ]
 
@@ -95,6 +96,7 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
+    'PAGE_SIZE':2
 }
 
 SIMPLE_JWT = {
@@ -112,6 +114,9 @@ DJOSER = {
 
 AUTH_USER_MODEL = 'core_user.User'
 
+
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -142,6 +147,14 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
+
+
+CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_BACKEND = 'django-db'
+CELERY_TIMEZONE = 'Europe/London'
 
 
 # Static files (CSS, JavaScript, Images)

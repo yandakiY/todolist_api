@@ -3,10 +3,13 @@ from rest_framework.viewsets import ModelViewSet , GenericViewSet
 from rest_framework.mixins import CreateModelMixin , DestroyModelMixin , RetrieveModelMixin
 from core.models import Label , Task
 from .serializers import LabelPostSerializer , TaskUpdateSerializer , LabelSerializer , LabelDetailSerializer , TaskSerializer , TaskPostSerializer
-
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.pagination import PageNumberPagination
 # Create your views here.
 
 class LabelViewSet(ModelViewSet):
+    
+    permission_classes = [IsAuthenticated]
     queryset = Label.objects.all()
     
     def get_serializer_class(self):
@@ -20,7 +23,8 @@ class LabelViewSet(ModelViewSet):
     
     
 class TaskViewSet(ModelViewSet):
-    
+    permission_classes = [IsAuthenticated]
+    pagination_class = PageNumberPagination
     queryset = Task.objects.all()
     
     def get_queryset(self):

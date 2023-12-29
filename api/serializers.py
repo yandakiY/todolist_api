@@ -92,8 +92,11 @@ class TaskPostSerializer(ModelSerializer):
         label = validated_data.get('label')
         time_reminder = validated_data.get('time_reminder')
         
-        return Task.objects.create(title=title, description=description, label=label , time_reminder = time_reminder , user_id=self.context['user_id'])
-    
+        task = Task.objects.create(title=title, description=description, label=label , time_reminder = time_reminder , user_id=self.context['user_id'])
+        # .send_task_notification()
+        # print(task.id)
+        
+        return task
     
 class TaskUpdateSerializer(ModelSerializer):
     

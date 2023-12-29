@@ -2,7 +2,9 @@ from django.db import models
 from utils.models import ModelId
 from django_extensions.db.models import TitleSlugDescriptionModel , ActivatorModel, TimeStampedModel
 from todolist_api import settings
-
+import datetime
+from django.utils import timezone
+# from utils.task_notif import send_task_notification
 
 class Label(TitleSlugDescriptionModel, ActivatorModel , TimeStampedModel):
     
@@ -23,10 +25,10 @@ class Task(TitleSlugDescriptionModel , ActivatorModel , TimeStampedModel , Model
 
     def __str__(self):
         return f'{self.title}'
+
     
-class Notification(ModelId , TimeStampedModel):
+class Notification(ModelId):
     
-    user = models.ForeignKey(settings.AUTH_USER_MODEL , on_delete=models.PROTECT)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL , on_delete=models.CASCADE)
     task = models.ForeignKey(Task , on_delete=models.PROTECT)
-    # created_notif = models.DateTimeField(blank=True, null=True)
-    
+    send_time_notif = models.DateTimeField(blank=True, null=True)
